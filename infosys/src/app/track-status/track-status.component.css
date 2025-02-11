@@ -1,0 +1,76 @@
+/* Stepper Styles */
+.stepper-container {
+  margin-top: 20px;
+}
+
+.stepper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.step-circle {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #ccc; /* Default color for inactive steps */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  color: #fff;
+}
+
+.step-line {
+  width: 100px;
+  height: 2px;
+  background-color: #ccc; /* Default color for inactive lines */
+  position: absolute;
+  top: 15px;
+  left: 50%;
+  z-index: -1;
+}
+
+/* Active step (green) */
+.step.active .step-circle {
+  background-color: #4caf50; /* Green */
+}
+
+/* Completed step (green) */
+.step.completed .step-circle {
+  background-color: #4caf50; /* Green */
+}
+
+/* Active line (green) */
+.step.completed + .step .step-line {
+  background-color: #4caf50; /* Green */
+}
+
+/* Inactive step (blue) */
+.step:not(.active):not(.completed) .step-circle {
+  background-color: #1e3c72; /* Blue */
+}
+
+/* Inactive line (blue) */
+.step:not(.completed) + .step .step-line {
+  background-color: #1e3c72; /* Blue */
+}
+
+/* Button Styles */
+.btn-primary {
+  background-color: #1e3c72;
+  border-color: #1e3c72;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #4caf50;
+  border-color: #4caf50;
+}

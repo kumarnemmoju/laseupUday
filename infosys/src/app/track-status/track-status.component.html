@@ -1,0 +1,12 @@
+<div class="stepper-container" *ngIf="showStepper; else noStepper">
+  <div class="stepper">
+    <div *ngFor="let step of steps" class="step" [ngClass]="{ 'active': step.active, 'completed': step.completed }">
+      <div class="step-circle">{{ step.id }}</div>
+      <div>{{ step.title }}</div>
+      <div class="step-line" *ngIf="step.id !== steps.length"></div>
+    </div>
+  </div>
+</div>
+<ng-template #noStepper>
+  <p>No tracking information available.</p>
+</ng-template>

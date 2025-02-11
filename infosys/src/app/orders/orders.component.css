@@ -53,3 +53,8 @@
     float: right;
     cursor: pointer;
   }
+
+  .card-footer{
+    background-color: #1e3c72;
+    color: white;
+  }

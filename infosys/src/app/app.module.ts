@@ -16,6 +16,8 @@ import { AddressesComponent } from './addresses/addresses.component';
 import { PaymentComponent } from './payment/payment.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { OrdersComponent } from './orders/orders.component';
+import { TrackStatusComponent } from './track-status/track-status.component';
+import { GetOrderStatusPipe } from './get-order-status.pipe';
 
 @NgModule({
   declarations: [
@@ -28,6 +30,8 @@ import { OrdersComponent } from './orders/orders.component';
     AddressesComponent,
     PaymentComponent,
     OrdersComponent,
+    TrackStatusComponent,
+    GetOrderStatusPipe,
   ],
   imports: [
     BrowserModule,

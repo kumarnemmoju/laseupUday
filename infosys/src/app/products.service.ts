@@ -13,4 +13,8 @@ export class ProductsService {
   getAllProducts(){
     return this.http.get(this.baseUrl + '/shoes');
   }
+
+  getAllTrackingDetails(){
+    return this.http.get(this.baseUrl + '/trackOrders');
+  }
 }
