@@ -1,0 +1,39 @@
+<div [ngClass]="{'spinner-container': isLoading}">
+  <mat-spinner *ngIf="isLoading" class="custom-spinner"></mat-spinner>
+</div>
+<div class="wishlist-container" *ngIf="!isLoading">
+  <h2>My Wishlist</h2>
+
+  <div *ngIf="wishlistItems.length > 0; else emptyWishlist">
+    <div *ngFor="let item of wishlistItems" class="wishlist-item">
+      <img [src]="item.image" alt="{{ item.series }}" class="product-img" />
+
+      <div class="details">
+        <h3>{{ item.brand }} - {{ item.series }}</h3>
+        <p class="rating">⭐ {{ item.rating }}/5</p>
+
+        <div class="price">
+          <span class="original-price">₹{{ item.originalPrice }}</span>
+          <span class="discount">(-{{ item.offerPercentage }}%)</span>
+          <strong class="current-price">₹{{ item.currentPrice }}</strong>
+        </div>
+
+        <p>GST: ₹{{ item.gst }}</p>
+        <p>Delivery: ₹{{ item.deliveryCharges }}</p>
+      </div>
+
+      <div class="wishlist-buttons">
+        <button class="btn btn-success" (click)="moveToCart(item)">Move to Cart</button>
+        <button class="btn btn-danger" (click)="removeFromWishlist(item.productId)">Remove</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Empty Wishlist Template -->
+  <ng-template #emptyWishlist>
+    <div class="empty-wishlist">
+      <p>Your Wishlist is Empty</p>
+      <button class="btn myBtnOutline" (click)="goToHome()">Shop Now</button>
+    </div>
+  </ng-template>
+</div>

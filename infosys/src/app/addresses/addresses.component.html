@@ -1,0 +1,59 @@
+<div class="container mt-4">
+    <h2 class="mb-3 bg-text">Your Addresses</h2>
+
+    <div *ngIf="defaultAddress" class="card bg-border mb-3">
+      <div class="card-header bg text-white">Default Address</div>
+      <div class="card-body">
+        <p class="card-text"><strong>{{ defaultAddress.street }}, {{ defaultAddress.suite }}</strong></p>
+        <p class="card-text">{{ defaultAddress.city }}, {{ defaultAddress.state }}</p>
+        <p class="card-text">{{ defaultAddress.country }}</p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div *ngFor="let address of addresses" class="col-md-4 mb-3">
+        <div class="card" [ngClass]="{ 'border-success': address === defaultAddress }">
+          <div class="card-body">
+            <p class="card-text"><strong>{{ address.street }}, {{ address.suite }}</strong></p>
+            <p class="card-text">{{ address.city }}, {{ address.state }}</p>
+            <p class="card-text">{{ address.country }}</p>
+            <button *ngIf="address !== defaultAddress" class="btn myBtnOutline btn-sm"
+              (click)="setDefaultAddress(address)">
+              Set as Default
+            </button>
+            
+            <span *ngIf="address === defaultAddress" class="badge myBtn">Default</span>
+            <button class="btn btn-danger btn-sm ml-2" style="float: right;" (click)="removeAddress(address)">Remove</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn myBtn mt-3" style="float: left;" type="button" (click)="toggleForm()">+ Add Address</button><br><br><br>
+
+    <div [ngClass]="{ 'collapse': !showForm, 'show': showForm }" class="mt-3">
+      <div class="card">
+        <div class="card-header">Enter New Address</div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6 mb-2">
+              <input type="text" class="form-control" placeholder="Street" [(ngModel)]="newAddress.street">
+            </div>
+            <div class="col-md-6 mb-2">
+              <input type="text" class="form-control" placeholder="Suite" [(ngModel)]="newAddress.suite">
+            </div>
+            <div class="col-md-4 mb-2">
+              <input type="text" class="form-control" placeholder="City" [(ngModel)]="newAddress.city">
+            </div>
+            <div class="col-md-4 mb-2">
+              <input type="text" class="form-control" placeholder="State" [(ngModel)]="newAddress.state">
+            </div>
+            <div class="col-md-4 mb-2">
+              <input type="text" class="form-control" placeholder="Country" [(ngModel)]="newAddress.country">
+            </div>
+          </div>
+          <button class="btn myBtn mt-2" style="float: right;" (click)="addAddress()">Save Address</button>
+        </div>
+      </div>
+    </div>
+</div>

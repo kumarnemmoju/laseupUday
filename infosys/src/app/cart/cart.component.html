@@ -1,0 +1,68 @@
+<div [ngClass]="{'spinner-container': isLoading}">
+  <mat-spinner *ngIf="isLoading" class="custom-spinner"></mat-spinner>
+</div>
+<div class="cart-container" *ngIf="!isLoading">
+  <h2>Shopping Cart</h2>
+  <div *ngIf="cartItems.length > 0; else emptyCart">
+    <div *ngFor="let item of cartItems" class="cart-item">
+      <img [src]="item.image" alt="{{ item.series }}" class="product-img" />
+
+      <div class="details">
+        <h3>{{ item.brand }} - {{ item.series }}</h3>
+        <p class="rating">⭐ {{ item.rating }}/5</p>
+
+        <div class="price">
+          <span class="original-price">₹{{ item.originalPrice }}</span>
+          <span class="discount">(-{{ item.offerPercentage }}%)</span>
+          <strong class="current-price">₹{{ item.currentPrice }}</strong>
+        </div>
+
+        <p>GST: ₹{{ item.gst }}</p>
+        <p>Delivery: ₹{{ item.deliveryCharges }}</p>
+
+        <div class="quantity-control">
+          <button (click)="decreaseQuantity(item)">-</button>
+          <span>{{ item.quantity }}</span>
+          <button (click)="increaseQuantity(item)">+</button>
+        </div>
+      </div>
+
+      <div class="cart-buttons">
+        <button class="btn btn-danger" (click)="removeFromCart(item.productId)">
+          Remove
+        </button>
+        <button class="wishlist-btn" (click)="moveToWishlist(item)">
+          Move to Wishlist
+        </button>
+      </div>
+    </div>
+
+    <!-- Cart Summary Section -->
+    <div class="cart-summary">
+      <h3 class="summary-title">Price Details<button class="btn btn-danger" style="float: right;" (click)="clearCart()">Clear Cart</button></h3>
+      <p><strong>Total Price:</strong> ₹{{ totalPrice }}</p>
+      <p><strong>GST:</strong> ₹{{ totalGST }}</p>
+      <p><strong>Delivery Charges:</strong> ₹{{ totalDelivery }}</p>
+      <p class="grand-total "><strong>Grand Total:</strong> ₹{{ grandTotal }}</p>
+      <div>
+        <div >
+          <div class="card card-body mt-4">
+            <app-addresses (finalAddressToBePlaced)="getFinalAddressToBeDelivered($event)"></app-addresses>
+          </div>
+        </div>
+      </div>
+      <button class="btn btn-block btn-success mt-4" (click)="goToPayment()">Proceed to Payment</button>
+    </div>
+
+  </div>
+
+  <!-- Empty Cart Template -->
+  <ng-template #emptyCart>
+    <div class="empty-cart">
+      <i class="fa fa-shopping-cart"></i>
+      <p>Your Cart is Empty</p>
+      <button class="btn myBtnOutline" (click)="goToHome()">Shop Now</button>
+    </div>
+  </ng-template>
+  
+</div>

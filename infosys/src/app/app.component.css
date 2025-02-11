@@ -1,0 +1,108 @@
+/* General Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8f9fa;
+}
+
+/* Navbar Styles */
+.navbar {
+    background: #ffffff; /* White Background */
+    padding: 10px 20px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    height: 70px; /* Adjust as needed */
+    display: flex;
+    align-items: center;
+}
+
+/* Logo Styling */
+.navbar-brand img {
+    height: 100%; /* Makes the logo fit the navbar height */
+    width: auto; /* Maintains aspect ratio */
+    max-height: 50px; /* Adjust based on navbar height */
+    object-fit: contain;
+    border-top-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+/* Navbar Links */
+.navbar-nav .nav-link {
+    color: #1e3c72 !important; /* Dark Blue for contrast */
+    font-size: 1.2rem;
+    transition: 0.3s ease-in-out;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #1e3c72 !important;
+    transform: scale(1.1);
+}
+
+/* Dropdown Styles */
+.dropdown-menu {
+    background: white;
+    border: none;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    padding: 10px 0;
+}
+
+.dropdown-menu .dropdown-item {
+    font-size: 1rem;
+    color: black;
+    padding: 10px 20px;
+    transition: 0.3s;
+}
+
+.dropdown-menu .dropdown-item:hover {
+    background: #1e3c72;
+    color: white;
+    border-radius: 5px;
+}
+
+/* Dropdown Divider */
+.dropdown-divider {
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Search Bar */
+.form-control {
+    border-radius: 25px;
+    padding: 10px 15px;
+    font-size: 1rem;
+}
+
+.btn-outline-success {
+    border-radius: 25px;
+    color: #1e3c72;
+    border: 2px solid white;
+    background-color: transparent;
+    transition: 0.3s;
+}
+
+.btn-outline-success:hover {
+    background-color: #1e3c72;
+    color: white;
+}
+
+/* Navbar Toggler */
+.navbar-toggler {
+    border: none;
+}
+
+.navbar-toggler-icon {
+    filter: invert(0); /* Adjust for visibility on white background */
+}
+/* Custom CSS to show dropdown on hover */
+.nav-item.dropdown:hover .dropdown-menu {
+    display: block;
+  }
+  
+  /* Optional: Add a slight delay to the dropdown for a smoother transition */
+  .nav-item.dropdown .dropdown-menu {
+    display: none;
+    transition: opacity 0.3s ease;
+  }
+  
+  .nav-item.dropdown:hover .dropdown-menu {
+    display: block;
+    opacity: 1;
+  }

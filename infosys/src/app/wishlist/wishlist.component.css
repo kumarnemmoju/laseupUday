@@ -1,0 +1,147 @@
+.wishlist-container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.wishlist-item {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #fff;
+  margin-bottom: 15px;
+  padding: 30px;
+  height: 260px;
+}
+
+.product-img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.details {
+  flex: 1;
+  margin-left: 15px;
+}
+
+.price {
+  font-size: 18px;
+  color: #333;
+}
+
+.original-price {
+  text-decoration: line-through;
+  color: red;
+}
+
+.discount {
+  color: green;
+  margin-left: 10px;
+}
+
+.current-price {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.wishlist-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.empty-wishlist {
+  text-align: center;
+  padding: 40px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}
+
+.empty-wishlist-image {
+  width: 150px;
+  height: 150px;
+  margin-bottom: 20px;
+}
+
+.empty-wishlist-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.empty-wishlist-message {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.btn-primary {
+  background-color: #1e3c72;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #2a5298;
+}
+
+h2 {
+  text-align: center;
+  font-size: 28px;
+  font-weight: bold;
+  text-transform: uppercase;
+  background-color: #1e3c72;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  margin-bottom: 20px;
+}
+
+.empty-wishlist{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 1000px;
+  height: 600px;
+  margin: 30px auto;
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  color: white;
+  font-family: 'Arial', sans-serif;
+  text-align: center;
+}
+
+.myBtnOutline{
+  border: solid 1px #1e3c72;
+  background-color: white;
+  color: #1e3c72;
+}
+.myBtnOutline:hover{
+  background-color: #1e3c72;
+  color: white;
+}
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Full viewport height */
+}
+
+/* Custom spinner color */
+.custom-spinner circle {
+  stroke: #1e3c72 !important; /* Override the spinner color */
+}

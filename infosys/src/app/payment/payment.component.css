@@ -1,0 +1,104 @@
+.container {
+    max-width: 600px;
+    
+  }
+
+  h2{
+    background-color: #1e3c72;
+    color: white;
+    padding: 10px;
+  }
+  
+  .card {
+    border-radius: 10px;
+    border: solid 2px #1e3c72;
+  }
+  
+  .payment-options button {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  
+  .alert {
+    text-align: center;
+    font-weight: bold;
+  }
+  
+  .amount-display {
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+  
+
+  .myBtnOutline{
+    border: solid 1px #1e3c72;
+    color: #1e3c72;
+  }
+  .myBtnOutline:hover{
+    background-color: #1e3c72;
+    color: white;
+  }
+  .myBtn{
+    color: white;
+    background-color: #1e3c72;
+  }
+
+  input,select{
+    border: solid 3px #1e3c72;
+}
+
+
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Full viewport height */
+}
+
+/* Custom spinner color */
+.custom-spinner circle {
+  stroke: #1e3c72 !important; /* Override the spinner color */
+}
+
+
+/* Modal Styling */
+.modal-content {
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.modal-header {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.modal-footer {
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+/* Close Button */
+.close {
+  opacity: 1;
+}
+
+.close:hover {
+  opacity: 0.8;
+}
+
+/* Check Icon */
+.fa-check-circle {
+  color: #28a745; /* Green color for success */
+}
+
+/* Primary Button */
+.btn-primary {
+  background-color: #1e3c72;
+  border-color: #1e3c72;
+}
+
+.btn-primary:hover {
+  background-color: #162b4f;
+  border-color: #162b4f;
+}

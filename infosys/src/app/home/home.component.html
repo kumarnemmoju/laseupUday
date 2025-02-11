@@ -1,0 +1,92 @@
+<div [ngClass]="{'spinner-container': isLoading}">
+  <mat-spinner *ngIf="isLoading" class="custom-spinner"></mat-spinner>
+</div>
+<div class="container-fluid" style="padding: 30px;" *ngIf="!isLoading">
+  <div class="row">
+    <!-- Filter Sidebar -->
+    <div class="col-md-2">
+      <!-- Sorting -->
+      <label class="fw-bold">Sort By:</label>
+      <select class="form-select mb-3" [(ngModel)]="selectedSort" (change)="applyFilters()">
+        <option value="recent">Recent</option>
+        <option value="lowToHigh">Price: Low to High</option>
+        <option value="highToLow">Price: High to Low</option>
+      </select>
+
+      <!-- Brand Filter -->
+      <label class="fw-bold">Filter by Brand:</label>
+      <select class="form-select mb-3" [(ngModel)]="selectedBrand" (change)="applyFilters()">
+        <option value="">All Brands</option>
+        <option *ngFor="let brand of uniqueBrands" [value]="brand">{{ brand }}</option>
+      </select>
+
+      <!-- Price Range -->
+      <label class="fw-bold">Price Range:</label>
+      <div class="input-group mb-3">
+        <input type="number" class="form-control" [(ngModel)]="minPrice" placeholder="Min Price" (input)="applyFilters()">
+        <input type="number" class="form-control" [(ngModel)]="maxPrice" placeholder="Max Price" (input)="applyFilters()">
+      </div>
+
+      <!-- Rating Filter -->
+      <label class="fw-bold">Minimum Rating:</label>
+      <select class="form-select mb-3" [(ngModel)]="selectedRating" (change)="applyFilters()">
+        <option value="0">All Ratings</option>
+        <option *ngFor="let rating of ratings" [value]="rating">{{ rating }}+</option>
+      </select>
+
+      <!-- Applied Filters Section -->
+      <div *ngIf="appliedFilters.length > 0">
+        <h6>Applied Filters:</h6>
+        <div *ngFor="let filter of appliedFilters" class="badge bg-primary me-2">
+          {{ filter }} <span (click)="removeFilter(filter)" style="cursor:pointer;">&times;</span>
+        </div>
+      </div>
+
+      <!-- Clear Filters Button -->
+      <button class="btn btn-danger mt-3 w-100" (click)="clearFilters()">Clear Filters</button>
+    </div>
+
+    <!-- Product List -->
+    <div class="col-md-10">
+      <div class="row">
+        <!-- Display paginated products -->
+        <div class="col-md-3 mb-4" *ngFor="let product of paginatedProducts">
+          <div class="card product-card">
+            <img [src]="product.image" class="card-img-top" alt="{{ product.brand }} {{ product.series }}" (error)="product.image = '../assets/Noimage.jpg'">
+            <div class="card-body">
+              <h5 class="card-title">{{ product.brand }} - {{ product.series }}</h5>
+              <p class="card-text">
+                <span class="text-muted text-decoration-line-through">₹{{ product.originalPrice }}</span>
+                <span class="text-success fw-bold ms-2">₹{{ product.currentPrice }}</span>
+              </p>
+              <p class="text-danger">Save {{ product.offerPercentage }}% OFF</p>
+              <p class="text-secondary">Delivery: ₹{{ product.deliveryCharges === 0 ? 'Free' : product.deliveryCharges }}</p>
+              <p class="text-white bg-success d-inline-block px-2 py-1 rounded">Rating: {{ product.rating }}</p>
+              <button class="btn myBtn w-100 mt-2" (click)="addToCart(product)">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pagination Controls -->
+      <nav aria-label="Page navigation" *ngIf="totalPages > 1">
+        <ul class="pagination justify-content-center">
+          <li class="page-item" [class.disabled]="currentPage === 1">
+            <a class="page-link" href="#" (click)="previousPage(); $event.preventDefault()">Previous</a>
+          </li>
+          <li class="page-item" *ngFor="let page of getPages()" [class.active]="page === currentPage">
+            <a class="page-link" href="#" (click)="goToPage(page); $event.preventDefault()">{{ page }}</a>
+          </li>
+          <li class="page-item" [class.disabled]="currentPage === totalPages">
+            <a class="page-link" href="#" (click)="nextPage(); $event.preventDefault()">Next</a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- No Products Message -->
+      <div *ngIf="filteredProducts.length === 0" class="alert alert-warning text-center">
+        No products match the selected filters.
+      </div>
+    </div>
+  </div>
+</div>

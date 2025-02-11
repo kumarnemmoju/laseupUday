@@ -1,0 +1,108 @@
+<div [ngClass]="{'spinner-container': isLoading}">
+  <mat-spinner *ngIf="isLoading" class="custom-spinner"></mat-spinner>
+</div>
+
+<div class="container mt-5" *ngIf="!isLoading">
+  <div class="card shadow p-4">
+    <h2 class="text-center mb-4">Payment Options</h2>
+
+    <!-- Payment Amount -->
+    <div class="amount-display text-center mb-3">
+      <h4>Total Amount: <span class="text-success">${{ amount }}</span></h4>
+    </div>
+
+    <!-- Payment Mode Selection -->
+    <div class="payment-options">
+      <button class="btn myBtn me-2" (click)="selectPaymentMode('card')">
+        Credit/Debit Card
+      </button>
+      <button class="btn myBtnOutline me-2" (click)="selectPaymentMode('upi')">
+        UPI (Not Available)
+      </button>
+      <button class="btn myBtnOutline me-2" (click)="selectPaymentMode('applePay')">
+        Apple Pay (Not Available)
+      </button>
+    </div>
+
+    <!-- Error Message -->
+    <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+      {{ errorMessage }}
+    </div>
+
+    <!-- Card Payment Form -->
+    <div *ngIf="selectedPayment === 'card'" class="mt-4">
+      <h4>Enter Card Details</h4>
+      <form [formGroup]="creditCardForm" (ngSubmit)="makePayment()">
+        <div class="mb-3">
+          <label class="form-label">Cardholder Name</label>
+          <input type="text" class="form-control" placeholder="John Doe" required formControlName="cardHolderName" />
+          <span *ngIf="creditCardForm.get('cardHolderName')?.invalid && creditCardForm.get('cardHolderName')?.touched">
+            Name is required and should only contain letters.
+          </span>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Card Number</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="**** **** **** ****"
+            required
+            formControlName="cardNumber"
+            (input)="formatCardNumber($event)"
+          />
+          <span *ngIf="creditCardForm.get('cardNumber')?.invalid && creditCardForm.get('cardNumber')?.touched">
+            Enter a valid card number (12-19 digits).
+          </span>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Expiry Date</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="MM/YY"
+              required
+              formControlName="expiration"
+              (input)="formatExpirationDate($event)"
+            />
+            <span *ngIf="creditCardForm.get('expiration')?.invalid && creditCardForm.get('expiration')?.touched">
+              Enter a valid expiration date (MM/YY).
+            </span>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label class="form-label">CVV</label>
+            <input type="password" class="form-control" placeholder="***" required formControlName="cvv" />
+            <span *ngIf="creditCardForm.get('cvv')?.invalid && creditCardForm.get('cvv')?.touched">
+              CVV must be 3 or 4 digits.
+            </span>
+          </div>
+        </div>
+
+        <button type="submit" class="btn myBtn w-100">Pay ${{ amount }}</button><br><br>
+        <span class="text-danger">Please don't reload the page until your payment is successful**</span>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Bootstrap Payment Success Modal -->
+<div *ngIf="showPaymentSuccessModal" class="modal fade show" tabindex="-1" role="dialog" style="display: block; background: rgba(0, 0, 0, 0.5);">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color: #1e3c72; color: white;">
+        <h5 class="modal-title">Payment Successful</h5>
+      </div>
+      <div class="modal-body text-center">
+        <i class="fas fa-check-circle fa-4x text-success mb-3"></i>
+        <h4 class="mb-3">Thank you for your payment!</h4>
+        <p>Your payment of <strong>${{ amount }}</strong> was successful.</p>
+        <p>Your invoice is being downloaded...</p>
+      </div>
+      <div class="modal-footer" style="background-color: #f8f9fa;">
+        <button type="button" class="btn btn-primary" (click)="closeModal()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

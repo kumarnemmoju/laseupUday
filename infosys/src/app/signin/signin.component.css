@@ -1,0 +1,28 @@
+.login-container {
+    max-width: 600px;
+    margin: auto;
+    margin-top: 50px;
+    padding: 20px;
+    background: #fff;
+    border-radius: 30px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border: solid 5px #1e3c72;
+  }
+
+  .myBtn{
+    color: white;
+    background-color: #1e3c72;
+  
+}
+h3{
+    color: #1e3c72;
+   }
+   label{
+    color: #1e3c72;
+    font-weight: bold;
+   }
+
+
+   input,select{
+    border: solid 3px #1e3c72;
+}

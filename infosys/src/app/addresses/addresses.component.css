@@ -1,0 +1,53 @@
+.bg{
+    background-color: #1e3c72;
+}
+.bg-border{
+    border: solid 2px #1e3c72;
+}
+.bg-text{
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+    text-transform: uppercase;
+    background-color: #1e3c72;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+}
+.myBtn{
+    color: white;
+    background-color: #1e3c72;
+}
+.card-header{
+    background-color: #1e3c72;
+    color: white;
+}
+.card{
+    border: solid 2px #1e3c72;
+}
+input,select{
+    border: solid 3px #1e3c72;
+}
+.myBtnOutline{
+    border: solid 1px #1e3c72;
+    color: #1e3c72;
+}
+.myBtnOutline:hover{
+    background-color: #1e3c72;
+    color: white;
+}
+
+/* Spinner Container */
+.spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px; /* Adjust height as needed */
+}
+
+/* Custom Spinner */
+.custom-spinner {
+    width: 50px !important; /* Adjust size as needed */
+    height: 50px !important;
+}
