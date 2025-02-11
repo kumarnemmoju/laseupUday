@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../user.service';
 import { Router } from '@angular/router';
 import { PaymentService } from '../payment.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-cart',
@@ -19,8 +20,8 @@ export class CartComponent implements OnInit {
   finalAddress: any;
   totalItemsInCart: any;
   orderDetails: any;
-
-  constructor(private userService: UserService, private router: Router,private paymentService : PaymentService) {}
+  disableMakePayment: boolean = true;
+  constructor(private userService: UserService, private router: Router,private paymentService : PaymentService,private snackbar:MatSnackBar) {}
 
   ngOnInit(): void {
     this.loadCart();
@@ -361,10 +362,17 @@ export class CartComponent implements OnInit {
               totalGST: this.totalGST,
               finalAddress: this.finalAddress,
             };
-  
+            console.log('order details : ',orderDetails);
             // Pass the order details to the payment component
-            this.paymentService.setOrderDetails(orderDetails);
-            this.router.navigate(['/payment']);
+            if(orderDetails.finalAddress === undefined || null){
+              this.snackbar.open('Please add address!', 'Close', {
+                duration: 3000,
+              });
+            }else{
+              this.paymentService.setOrderDetails(orderDetails);
+              this.router.navigate(['/payment']);
+            }
+            
           }
         }
       });

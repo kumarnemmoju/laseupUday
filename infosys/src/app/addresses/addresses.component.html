@@ -1,59 +1,73 @@
 <div class="container mt-4">
-    <h2 class="mb-3 bg-text">Your Addresses</h2>
+  <h2 class="mb-3 bg-text">Your Addresses</h2>
 
-    <div *ngIf="defaultAddress" class="card bg-border mb-3">
-      <div class="card-header bg text-white">Default Address</div>
-      <div class="card-body">
-        <p class="card-text"><strong>{{ defaultAddress.street }}, {{ defaultAddress.suite }}</strong></p>
-        <p class="card-text">{{ defaultAddress.city }}, {{ defaultAddress.state }}</p>
-        <p class="card-text">{{ defaultAddress.country }}</p>
-      </div>
+  <div *ngIf="defaultAddress" class="card bg-border mb-3">
+    <div class="card-header bg text-white">Default Address</div>
+    <div class="card-body">
+      <p class="card-text"><strong>{{ defaultAddress.street }}, {{ defaultAddress.suite }}</strong></p>
+      <p class="card-text">{{ defaultAddress.city }}, {{ defaultAddress.state }}</p>
+      <p class="card-text">{{ defaultAddress.country }}</p>
     </div>
+  </div>
 
-    <div class="row">
-      <div *ngFor="let address of addresses" class="col-md-4 mb-3">
-        <div class="card" [ngClass]="{ 'border-success': address === defaultAddress }">
-          <div class="card-body">
-            <p class="card-text"><strong>{{ address.street }}, {{ address.suite }}</strong></p>
-            <p class="card-text">{{ address.city }}, {{ address.state }}</p>
-            <p class="card-text">{{ address.country }}</p>
-            <button *ngIf="address !== defaultAddress" class="btn myBtnOutline btn-sm"
-              (click)="setDefaultAddress(address)">
-              Set as Default
-            </button>
-            
-            <span *ngIf="address === defaultAddress" class="badge myBtn">Default</span>
-            <button class="btn btn-danger btn-sm ml-2" style="float: right;" (click)="removeAddress(address)">Remove</button>
-          </div>
+  <div class="row">
+    <div *ngFor="let address of addresses" class="col-md-4 mb-3">
+      <div class="card" [ngClass]="{ 'border-success': address === defaultAddress }">
+        <div class="card-body">
+          <p class="card-text"><strong>{{ address.street }}, {{ address.suite }}</strong></p>
+          <p class="card-text">{{ address.city }}, {{ address.state }}</p>
+          <p class="card-text">{{ address.country }}</p>
+          <button *ngIf="address !== defaultAddress" class="btn myBtnOutline btn-sm"
+            (click)="setDefaultAddress(address)">
+            Set as Default
+          </button>
+          
+          <span *ngIf="address === defaultAddress" class="badge myBtn">Default</span>
+          <button class="btn btn-danger btn-sm ml-2" style="float: right;" (click)="removeAddress(address)">Remove</button>
         </div>
       </div>
     </div>
+  </div>
 
-    <button class="btn myBtn mt-3" style="float: left;" type="button" (click)="toggleForm()">+ Add Address</button><br><br><br>
+  <button class="btn myBtn mt-3" style="float: left;" type="button" (click)="toggleForm()">+ Add Address</button><br><br><br>
 
-    <div [ngClass]="{ 'collapse': !showForm, 'show': showForm }" class="mt-3">
-      <div class="card">
-        <div class="card-header">Enter New Address</div>
-        <div class="card-body">
+  <div [ngClass]="{ 'collapse': !showForm, 'show': showForm }" class="mt-3">
+    <div class="card">
+      <div class="card-header">Enter New Address</div>
+      <div class="card-body">
+        <form [formGroup]="newAddressForm">
           <div class="row">
             <div class="col-md-6 mb-2">
-              <input type="text" class="form-control" placeholder="Street" [(ngModel)]="newAddress.street">
+              <input type="text" class="form-control" placeholder="Street" formControlName="street">
+              <div *ngIf="newAddressForm.get('street')?.invalid && newAddressForm.get('street')?.touched" class="text-danger">
+                Street is required.
+              </div>
             </div>
             <div class="col-md-6 mb-2">
-              <input type="text" class="form-control" placeholder="Suite" [(ngModel)]="newAddress.suite">
+              <input type="text" class="form-control" placeholder="Suite" formControlName="suite">
             </div>
             <div class="col-md-4 mb-2">
-              <input type="text" class="form-control" placeholder="City" [(ngModel)]="newAddress.city">
+              <input type="text" class="form-control" placeholder="City" formControlName="city">
+              <div *ngIf="newAddressForm.get('city')?.invalid && newAddressForm.get('city')?.touched" class="text-danger">
+                City is required.
+              </div>
             </div>
             <div class="col-md-4 mb-2">
-              <input type="text" class="form-control" placeholder="State" [(ngModel)]="newAddress.state">
+              <input type="text" class="form-control" placeholder="State" formControlName="state">
+              <div *ngIf="newAddressForm.get('state')?.invalid && newAddressForm.get('state')?.touched" class="text-danger">
+                State is required.
+              </div>
             </div>
             <div class="col-md-4 mb-2">
-              <input type="text" class="form-control" placeholder="Country" [(ngModel)]="newAddress.country">
+              <input type="text" class="form-control" placeholder="Country" formControlName="country">
+              <div *ngIf="newAddressForm.get('country')?.invalid && newAddressForm.get('country')?.touched" class="text-danger">
+                Country is required.
+              </div>
             </div>
           </div>
-          <button class="btn myBtn mt-2" style="float: right;" (click)="addAddress()">Save Address</button>
-        </div>
+          <button class="btn myBtn mt-2" style="float: right;" (click)="addAddress()" [disabled]="newAddressForm.invalid">Save Address</button>
+        </form>
       </div>
     </div>
+  </div>
 </div>

@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -12,17 +13,28 @@ export class AddressesComponent implements OnInit {
   defaultAddress: any = null;
   allUsers: any[] = [];
   showForm: boolean = false;
-  newAddress = { street: '', suite: '', city: '', state: '', country: '' };
+  newAddressForm: FormGroup;
   currentUser: any = null;
   
   @Output() finalAddressToBePlaced = new EventEmitter<any>();
 
-  constructor(private userService: UserService, private snackBar: MatSnackBar) {}
+  constructor(
+    private userService: UserService, 
+    private snackBar: MatSnackBar,
+    private fb: FormBuilder
+  ) {
+    this.newAddressForm = this.fb.group({
+      street: ['', Validators.required],
+      suite: [''],
+      city: ['', Validators.required],
+      state: ['', Validators.required],
+      country: ['', Validators.required]
+    });
+  }
 
   ngOnInit() {
     this.loadAddresses();
   }
-  
 
   loadAddresses() {
     const user = localStorage.getItem('user');
@@ -36,9 +48,6 @@ export class AddressesComponent implements OnInit {
           if (userDt && userDt.addresses.length > 0) {
             this.addresses = userDt.addresses;
             this.defaultAddress = userDt.addresses[userDt.addresses.length - 1]; 
-            console.log('this.defaultAddress : ', this.defaultAddress);
-            
-            // Emit the default address after fetching it
             this.finalAddressToBePlaced.emit(this.defaultAddress);
           }
         }
@@ -48,26 +57,20 @@ export class AddressesComponent implements OnInit {
 
   setDefaultAddress(address: any) {
     this.defaultAddress = address;
-    this.finalAddressToBePlaced.emit(this.defaultAddress);  // ✅ Emit when address changes
+    this.finalAddressToBePlaced.emit(this.defaultAddress);
     this.showSnackbar('Default address updated!');
   }
 
   toggleForm() {
-
     this.showForm = !this.showForm;
   }
 
   addAddress() {
-    if (
-      this.newAddress.street &&
-      this.newAddress.city &&
-      this.newAddress.state &&
-      this.newAddress.country
-    ) {
-      const newAddr = { ...this.newAddress };
+    if (this.newAddressForm.valid) {
+      const newAddr = { ...this.newAddressForm.value };
       this.addresses.push(newAddr);
       this.defaultAddress = newAddr;
-      this.newAddress = { street: '', suite: '', city: '', state: '', country: '' };
+      this.newAddressForm.reset();
       this.showForm = false;
 
       if (this.currentUser) {
@@ -77,9 +80,7 @@ export class AddressesComponent implements OnInit {
           console.log('Address Updated Successfully', res);
           localStorage.setItem('user', JSON.stringify(this.currentUser));
           this.showSnackbar('Address added successfully!');
-          
-          // Emit new default address
-          this.finalAddressToBePlaced.emit(this.defaultAddress);  // ✅ Emit when a new address is added
+          this.finalAddressToBePlaced.emit(this.defaultAddress);
         });
       }
     } else {
@@ -92,7 +93,7 @@ export class AddressesComponent implements OnInit {
 
     if (this.defaultAddress === address) {
       this.defaultAddress = this.addresses.length > 0 ? this.addresses[this.addresses.length - 1] : null;
-      this.finalAddressToBePlaced.emit(this.defaultAddress);  // ✅ Emit when address is removed
+      this.finalAddressToBePlaced.emit(this.defaultAddress);
     }
 
     if (this.currentUser) {

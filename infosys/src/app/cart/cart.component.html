@@ -51,7 +51,7 @@
           </div>
         </div>
       </div>
-      <button class="btn btn-block btn-success mt-4" (click)="goToPayment()">Proceed to Payment</button>
+      <button class="btn btn-block btn-success mt-4" (click)="goToPayment()" [disabled]="finalAddress === undefined || null">Proceed to Payment</button>
     </div>
 
   </div>
